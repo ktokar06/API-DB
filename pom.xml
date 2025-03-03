@@ -15,11 +15,41 @@
   </properties>
 
   <dependencies>
+    <!-- JUnit dependency -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
+    </dependency>
+
+    <!-- REST Assured dependency -->
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>5.5.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Selenium dependency -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>4.27.0</version>
+    </dependency>
+
+    <!-- TestNG dependency -->
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>7.10.2</version>
+    </dependency>
+
+    <!-- JDBC dependency -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.27</version>
     </dependency>
   </dependencies>
 </project>
