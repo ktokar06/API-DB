@@ -11,10 +11,6 @@ public class dbTags {
     }
 
     public static int createTag(String name) throws SQLException {
-        if (name == null || name.isEmpty()) {
-            throw new SQLException("Имя тега не может быть пустым");
-        }
-
         String slug = name.toLowerCase().replace(" ", "-");
         String query = "INSERT INTO wp_terms (name, slug) VALUES (?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -36,10 +32,6 @@ public class dbTags {
     }
 
     public static int updateTag(int termId, String newName) throws SQLException {
-        if (newName == null || newName.isEmpty()) {
-            throw new SQLException("Новое имя тега не может быть пустым");
-        }
-
         String newSlug = newName.toLowerCase().replace(" ", "-");
         String query = "UPDATE wp_terms SET name = ?, slug = ? WHERE term_id = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {

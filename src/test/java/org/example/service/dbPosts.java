@@ -10,11 +10,12 @@ public class dbPosts {
         dbPosts.connection = connection;
     }
 
-    // Create поста
+    // Create post
     public static int createPost(String title, String content, int authorId, String status) throws SQLException {
         String slug = title.toLowerCase().replace(" ", "-");
-        String query = "INSERT INTO wp_posts (post_author, post_content, post_title, post_status, post_name, post_excerpt) " +
-                "VALUES (?, ?, ?, ?, ?, '')";
+        String query = "INSERT INTO wp_posts (post_author, post_content, post_title, post_status, post_name, to_ping, pinged, post_excerpt, post_content_filtered) " +
+                "VALUES (?, ?, ?, ?, ?, '', '', '', '')";
+
         try (PreparedStatement pstmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, authorId);
             pstmt.setString(2, content);
@@ -29,7 +30,7 @@ public class dbPosts {
         }
     }
 
-    // Retv поста по ID
+    // Retv post ID
     public static ResultSet getPostById(int postId) throws SQLException {
         String query = "SELECT * FROM wp_posts WHERE ID = ?";
         PreparedStatement pstmt = connection.prepareStatement(query);
@@ -37,7 +38,7 @@ public class dbPosts {
         return pstmt.executeQuery();
     }
 
-    // Update поста
+    // Update post
     public static int updatePost(int postId, String title, String content) throws SQLException {
         if (title == null || content == null) {
             throw new SQLException("Заголовок и содержание обязательны");
@@ -52,7 +53,7 @@ public class dbPosts {
         }
     }
 
-    // Delete поста
+    // Delete post
     public static int deletePost(int postId) throws SQLException {
         String query = "DELETE FROM wp_posts WHERE ID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
@@ -61,7 +62,7 @@ public class dbPosts {
         }
     }
 
-    // Delete всех постов
+    // Delete all post
     public static void deleteAllPosts() throws SQLException {
         String query = "DELETE FROM wp_posts";
         try (Statement stmt = connection.createStatement()) {

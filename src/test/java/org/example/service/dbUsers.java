@@ -11,10 +11,6 @@ public class dbUsers {
     }
 
     public static int createUser(String login, String password, String email) throws SQLException {
-        if (login == null || password == null || email == null) {
-            throw new SQLException("Логин, пароль и email обязательны");
-        }
-
         String query = "INSERT INTO wp_users (user_login, user_pass, user_email, user_registered) VALUES (?, ?, ?, NOW())";
         try (PreparedStatement pstmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, login);
