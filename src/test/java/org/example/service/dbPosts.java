@@ -13,7 +13,8 @@ public class dbPosts {
     // Create post
     public static int createPost(String title, String content, int authorId, String status) throws SQLException {
         String slug = title.toLowerCase().replace(" ", "-");
-        String query = "INSERT INTO wp_posts (post_author, post_content, post_title, post_status, post_name, to_ping, pinged, post_excerpt, post_content_filtered) " +
+        String query = "INSERT INTO wp_posts (post_author, post_content, post_title, " +
+                "post_status, post_name, to_ping, pinged, post_excerpt, post_content_filtered) " +
                 "VALUES (?, ?, ?, ?, ?, '', '', '', '')";
 
         try (PreparedStatement pstmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {

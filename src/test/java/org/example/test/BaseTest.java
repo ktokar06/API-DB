@@ -13,22 +13,19 @@ import java.sql.Statement;
 public class BaseTest {
 
     private DataBaseConnUtilities dbUtils;
-    private Connection connection;
-    private Statement statement;
-
-    private String hostname = "localhost";
-    private String dbname = "wordpress";
-    private String username = "wordpress";
-    private String password = "wordpress";
 
     @BeforeMethod
     public void setUp() throws SQLException {
         dbUtils = new DataBaseConnUtilities();
-        connection = dbUtils.createConnection(hostname, dbname, username, password);
+        String hostname = "localhost";
+        String dbname = "wordpress";
+        String username = "wordpress";
+        String password = "wordpress";
+        Connection connection = dbUtils.createConnection(hostname, dbname, username, password);
         dbPosts.setConnection(connection);
         dbTags.setConnection(connection);
         dbUsers.setConnection(connection);
-        statement = dbUtils.createStatement();
+        Statement statement = dbUtils.createStatement();
     }
 
     @AfterMethod

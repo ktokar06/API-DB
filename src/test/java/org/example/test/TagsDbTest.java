@@ -36,8 +36,8 @@ public class TagsDbTest extends BaseTest {
 
         ResultSet tag = getTagById(tagId);
         Assert.assertTrue(tag.next(), "Тег не найден");
-        Assert.assertTrue(tag.getString("name").equals(tagName), "Название тега не совпадает");
-        Assert.assertTrue(tag.getString("slug").equals("test-tag"), "Тег не совпадает");
+        Assert.assertEquals(tagName, tag.getString("name"), "Название тега не совпадает");
+        Assert.assertEquals(tag.getString("slug"), "test-tag", "Тег не совпадает");
     }
 
     /**
@@ -48,7 +48,7 @@ public class TagsDbTest extends BaseTest {
         int tagId = createTag("Test Tag");
         ResultSet tag = getTagById(tagId);
         Assert.assertTrue(tag.next(), "Тег не найден");
-        Assert.assertTrue(tag.getString("name").equals("Test Tag"), "Название тега не совпадает");
+        Assert.assertEquals(tag.getString("name"), "Test Tag", "Название тега не совпадает");
     }
 
     @Test(description = "Негативный кейс: Получение несуществующего тега по ID. Проверка сообщения об ошибке.")
@@ -65,18 +65,18 @@ public class TagsDbTest extends BaseTest {
         int tagId = createTag("Old Name");
 
         int updatedRows = updateTag(tagId, "New Name");
-        Assert.assertTrue(updatedRows == 1, "Тег не обновлен");
+        Assert.assertEquals(updatedRows, 1, "Тег не обновлен");
 
         ResultSet tag = getTagById(tagId);
         Assert.assertTrue(tag.next(), "Тег не найден");
-        Assert.assertTrue(tag.getString("name").equals("New Name"), "Название не обновлено");
-        Assert.assertTrue(tag.getString("slug").equals("new-name"), "Тег не обновлен");
+        Assert.assertEquals(tag.getString("name"), "New Name", "Название не обновлено");
+        Assert.assertEquals(tag.getString("slug"), "new-name", "Тег не обновлен");
     }
 
     @Test(description = "Негативный кейс: Обновление несуществующего тега. Проверка сообщения об ошибке.")
     public void updateTagTest() throws SQLException {
         int updatedRows = updateTag(999, "New Name");
-        Assert.assertTrue(updatedRows == 0, "Не должно быть обновленных строк");
+        Assert.assertEquals(updatedRows, 0, "Не должно быть обновленных строк");
     }
 
     /**
@@ -87,7 +87,7 @@ public class TagsDbTest extends BaseTest {
         int tagId = createTag("Test Tag");
 
         int deletedRows = deleteTag(tagId);
-        Assert.assertTrue(deletedRows == 1, "Тег не удален");
+        Assert.assertEquals(deletedRows, 1, "Тег не удален");
 
         ResultSet tag = getTagById(tagId);
         Assert.assertFalse(tag.next(), "Тег должен быть удален");
@@ -96,6 +96,6 @@ public class TagsDbTest extends BaseTest {
     @Test(description = "Негативный кейс: Удаление несуществующего тега. Проверка сообщения об ошибке.")
     public void deleteTagsTest() throws SQLException {
         int deletedRows = deleteTag(999);
-        Assert.assertTrue(deletedRows == 0, "Не должно быть удаленных строк");
+        Assert.assertEquals(deletedRows, 0, "Не должно быть удаленных строк");
     }
 }
