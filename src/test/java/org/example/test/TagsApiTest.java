@@ -5,10 +5,9 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-
 import static org.example.config.MyConfig.*;
-import static org.example.service.Posts.deleteAllPost;
-import static org.example.service.Tags.*;
+import static org.example.service.apiPosts.deleteAllPost;
+import static org.example.service.apiTags.*;
 import static org.example.specification.Specifications.requestSpecification;
 
 public class TagsApiTest{

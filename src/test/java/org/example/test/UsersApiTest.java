@@ -5,11 +5,9 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-
 import java.util.List;
-
 import static org.example.config.MyConfig.*;
-import static org.example.service.Users.*;
+import static org.example.service.apiUsers.*;
 import static org.example.specification.Specifications.requestSpecification;
 
 public class UsersApiTest{
