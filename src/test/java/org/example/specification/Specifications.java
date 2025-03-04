@@ -2,7 +2,6 @@ package org.example.specification;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
-
 import static io.restassured.http.ContentType.JSON;
 import static org.example.config.MyConfig.URL;
 

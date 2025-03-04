@@ -2,14 +2,12 @@ package org.example.service;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-
 import java.util.List;
-
 import static io.restassured.RestAssured.given;
 import static org.example.config.MyConfig.*;
 import static org.example.specification.Specifications.requestSpecification;
 
-public class Tags {
+public class apiTags {
 
     // cоздание tag
     public static Response createTag(String name, String description) {

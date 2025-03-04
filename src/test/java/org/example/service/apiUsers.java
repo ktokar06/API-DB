@@ -6,7 +6,7 @@ import static io.restassured.RestAssured.given;
 import static org.example.config.MyConfig.*;
 import static org.example.specification.Specifications.requestSpecification;
 
-public class Users {
+public class apiUsers {
 
     // создание user
     public static Response createUser (String username, String email, String password) {
