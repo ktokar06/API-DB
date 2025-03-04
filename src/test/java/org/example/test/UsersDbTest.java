@@ -32,7 +32,6 @@ public class UsersDbTest extends BaseTest {
         Assert.assertTrue(user.getString("user_email").equals("test@example.com"), "Email не совпадает");
     }
 
-
     /**
      * 3.3
      */
