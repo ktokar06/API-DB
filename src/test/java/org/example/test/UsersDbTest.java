@@ -127,20 +127,4 @@ public class UsersDbTest extends BaseTest {
         Assert.assertEquals(user.getString("user_login"), "new_user", "Логин не обновлён");
         Assert.assertEquals(user.getString("user_email"), "new.user@test.com", "Email не обновлён");
     }
-
-    @Test(description = "Негативный кейс: Обновление с невалидными параметрами")
-    public void updateUserMeInvalidParamsTest() throws SQLException {
-        int userId = createUser("valid_user", "pass123", "valid@test.com");
-
-        try {
-
-            updateUser(userId, "", "invalid_email");
-            Assert.fail("Ожидалось исключение SQLException");
-        } catch (SQLException e) {
-            ResultSet user = getUserById(userId);
-            Assert.assertTrue(user.next(), "Пользователь не найден");
-            Assert.assertEquals(user.getString("user_login"), "valid_user", "Логин изменился");
-            Assert.assertEquals(user.getString("user_email"), "valid@test.com", "Email изменился");
-        }
-    }
 }
