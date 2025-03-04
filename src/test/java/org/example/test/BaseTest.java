@@ -8,14 +8,13 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class BaseTest {
 
     private DataBaseConnUtilities dbUtils;
 
     @BeforeMethod
-    public void setUp() throws SQLException {
+    public void setUp() {
         dbUtils = new DataBaseConnUtilities();
         String hostname = "localhost";
         String dbname = "wordpress";
@@ -25,7 +24,7 @@ public class BaseTest {
         dbPosts.setConnection(connection);
         dbTags.setConnection(connection);
         dbUsers.setConnection(connection);
-        Statement statement = dbUtils.createStatement();
+        dbUtils.createStatement();
     }
 
     @AfterMethod
