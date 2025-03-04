@@ -92,4 +92,55 @@ public class UsersDbTest extends BaseTest {
         int deletedRows = deleteUser(999);
         Assert.assertTrue(deletedRows == 0, "Не должно быть удаленных строк");
     }
+
+    /**
+     * 3.6
+     */
+    @Test(description = "Позитивный кейс: Получение информации о текущем пользователе")
+    public void retrieveUserMePositiveTest() throws SQLException {
+        int userId = createUser("user_me", "password123", "user.me@example.com");
+
+        ResultSet user = getUserById(userId);
+        Assert.assertTrue(user.next(), "Информация о пользователе не найдена");
+        Assert.assertEquals(user.getString("user_login"), "user_me", "Логин не совпадает");
+        Assert.assertEquals(user.getString("user_email"), "user.me@example.com", "Email не совпадает");
+    }
+
+    @Test(description = "Негативный кейс: Попытка получения без авторизации")
+    public void retrieveUserMeNegativeTest() throws SQLException {
+        ResultSet user = getUserById(999);
+        Assert.assertFalse(user.next(), "Данные пользователя не должны быть доступны");
+    }
+
+    /**
+     * 3.7
+     */
+    @Test(description = "Позитивный кейс: Обновление текущего пользователя")
+    public void updateUserMePositiveTest() throws SQLException {
+        int userId = createUser("old_user", "pass123", "old.user@test.com");
+
+        int updatedRows = updateUser(userId, "new_user", "new.user@test.com");
+        Assert.assertEquals(updatedRows, 1, "Должна быть одна обновлённая запись");
+
+        ResultSet user = getUserById(userId);
+        Assert.assertTrue(user.next(), "Пользователь не найден");
+        Assert.assertEquals(user.getString("user_login"), "new_user", "Логин не обновлён");
+        Assert.assertEquals(user.getString("user_email"), "new.user@test.com", "Email не обновлён");
+    }
+
+    @Test(description = "Негативный кейс: Обновление с невалидными параметрами")
+    public void updateUserMeInvalidParamsTest() throws SQLException {
+        int userId = createUser("valid_user", "pass123", "valid@test.com");
+
+        try {
+
+            updateUser(userId, "", "invalid_email");
+            Assert.fail("Ожидалось исключение SQLException");
+        } catch (SQLException e) {
+            ResultSet user = getUserById(userId);
+            Assert.assertTrue(user.next(), "Пользователь не найден");
+            Assert.assertEquals(user.getString("user_login"), "valid_user", "Логин изменился");
+            Assert.assertEquals(user.getString("user_email"), "valid@test.com", "Email изменился");
+        }
+    }
 }
