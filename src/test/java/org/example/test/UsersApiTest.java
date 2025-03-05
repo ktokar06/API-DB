@@ -12,6 +12,7 @@ import static org.example.config.MyConfig.*;
 import static org.example.service.ApiUsers.*;
 import static org.example.specification.Specifications.requestSpecification;
 
+
 public class UsersApiTest{
 
     /**
