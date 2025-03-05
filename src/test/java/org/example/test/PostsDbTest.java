@@ -102,7 +102,7 @@ public class PostsDbTest extends BaseTest {
     }
 
     @Test(description = "Негативный кейс: Удаление несуществующего поста. Проверка сообщения об ошибке.")
-    public void deleteNotExistendPostTest() throws SQLException {
+    public void deleteNotExistedPostTest() throws SQLException {
         int deletedRows = deletePost(999);
         Assert.assertEquals(deletedRows, 0, "Пост не найден");
     }
