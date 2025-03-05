@@ -55,6 +55,8 @@ public class TagsDbTest extends BaseTest {
     public void retrieveTagsByIDTest() throws SQLException {
         ResultSet tag = getTagById(999);
         Assert.assertFalse(tag.next(), "Тег не должен существовать");
+        Assert.assertFalse(tag.isBeforeFirst(), "Пусто");
+
     }
 
     /**
@@ -62,15 +64,19 @@ public class TagsDbTest extends BaseTest {
      */
     @Test(description = "Позитивный кейс: Обновление тега. Проверка, что тег обновлен с новыми параметрами.")
     public void updateTagsTest() throws SQLException {
-        int tagId = createTag("Old Name");
+        String oldName = "Old Name";
+        String newName = "New Name";
+        String expectedSlug = "new-name";
 
-        int updatedRows = updateTag(tagId, "New Name");
+        int tagId = createTag(oldName);
+
+        int updatedRows = updateTag(tagId, newName);
         Assert.assertEquals(updatedRows, 1, "Тег не обновлен");
 
         ResultSet tag = getTagById(tagId);
         Assert.assertTrue(tag.next(), "Тег не найден");
-        Assert.assertEquals(tag.getString("name"), "New Name", "Название не обновлено");
-        Assert.assertEquals(tag.getString("slug"), "new-name", "Тег не обновлен");
+        Assert.assertEquals(tag.getString("name"), newName, "Название не обновлено");
+        Assert.assertEquals(tag.getString("slug"), expectedSlug, "Тег не обновлен");
     }
 
     @Test(description = "Негативный кейс: Обновление несуществующего тега. Проверка сообщения об ошибке.")

@@ -48,6 +48,7 @@ public class UsersDbTest extends BaseTest {
     public void retrieveUsersByIdTest() throws SQLException {
         ResultSet user = getUserById(999);
         Assert.assertFalse(user.next(), "Пользователь не должен существовать");
+        Assert.assertFalse(user.isBeforeFirst(), "Пусто");
     }
 
     /**

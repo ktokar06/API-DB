@@ -9,6 +9,7 @@ import static org.example.service.dbPosts.*;
 
 public class PostsDbTest extends BaseTest {
 
+
     /**
      * 1.1
      */
@@ -62,6 +63,7 @@ public class PostsDbTest extends BaseTest {
     public void retrievePostsByIDTest() throws SQLException {
         ResultSet rs = getPostById(999);
         Assert.assertFalse(rs.next(), "Пост не найден");
+        Assert.assertFalse(rs.isBeforeFirst(), "Пусто");
     }
 
     /**
