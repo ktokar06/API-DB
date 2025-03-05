@@ -37,6 +37,8 @@ public class MyConfig {
     /**
      * Tags
      * */
+    public static final String TEST_TEG = "Test Tag";
+
     public static final String TAG_NAME_FIELD = "name";
     public static final String TAG_SLUG_FIELD = "slug";
 
