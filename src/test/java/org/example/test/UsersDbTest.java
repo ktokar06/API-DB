@@ -24,11 +24,11 @@ public class UsersDbTest extends BaseTest {
      */
     @Test(description = "Позитивный кейс: Создание пользователя. Проверка, что пользователь создан с корректными параметрами.")
     public void createUserTest() throws SQLException {
-        int userId = createUser("testuser", "password123", "test@example.com");
+        int userId = createUser("tester", "password123", "test@example.com");
 
         ResultSet user = getUserById(userId);
         Assert.assertTrue(user.next(), "Пользователь не найден");
-        Assert.assertEquals(user.getString("user_login"), "testuser", "Логин не совпадает");
+        Assert.assertEquals(user.getString("user_login"), "tester", "Логин не совпадает");
         Assert.assertEquals(user.getString("user_email"), "test@example.com", "Email не совпадает");
     }
 

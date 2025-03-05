@@ -23,10 +23,9 @@ public class DataBaseConnUtilities {
         }
     }
 
-    public Statement createStatement() {
+    public void createStatement() {
         try {
             statement = connection.createStatement();
-            return statement;
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при создании Statement", e);
         }
