@@ -25,7 +25,7 @@ public class UsersDbTest extends BaseTest {
      * 3.2
      */
     @Test(description = "Позитивный кейс: Создание пользователя. Проверка, что пользователь создан с корректными параметрами.")
-    public void createUserTest() throws SQLException {
+    public void createUserWithValidParamsTest() throws SQLException {
         int userId = createUser("tester", "password123", "test@example.com");
 
         ResultSet user = getUserById(userId);
@@ -38,7 +38,7 @@ public class UsersDbTest extends BaseTest {
      * 3.3
      */
     @Test(description = "Позитивный кейс: Получение пользователя по ID. Проверка, что пользователь возвращается с корректными параметрами.")
-    public void retrieveUserByIDTest() throws SQLException {
+    public void retrieveUserByIdTest() throws SQLException {
         int userId = createUser("user1", "pass1", "user1@test.com");
 
         ResultSet user = getUserById(userId);
@@ -47,7 +47,7 @@ public class UsersDbTest extends BaseTest {
     }
 
     @Test(description = "Негативный кейс: Получение несуществующего пользователя по ID. Проверка сообщения об ошибке.")
-    public void retrieveUsersByIdTest() throws SQLException {
+    public void retrieveNonexistentUserByIdTest() throws SQLException {
         ResultSet user = getUserById(999);
         Assert.assertFalse(user.next(), "Пользователь не должен существовать");
         Assert.assertFalse(user.isBeforeFirst(), "Результат запроса должен быть пустым");
@@ -57,7 +57,7 @@ public class UsersDbTest extends BaseTest {
      * 3.4
      */
     @Test(description = "Позитивный кейс: Обновление пользователя. Проверка, что пользователь обновлен с новыми параметрами.")
-    public void updateUserTest() throws SQLException {
+    public void updateUserWithValidParamsTest() throws SQLException {
         int userId = createUser("olduser", "pass", "old@test.com");
 
         int updatedRows = updateUser(userId, "newuser", "new@test.com");
@@ -70,7 +70,7 @@ public class UsersDbTest extends BaseTest {
     }
 
     @Test(description = "Негативный кейс: Обновление несуществующего пользователя. Проверка сообщения об ошибке.")
-    public void updateUsersTest() throws SQLException {
+    public void updateNonexistentUserTest() throws SQLException {
         int updatedRows = updateUser(999, "newuser", "new@test.com");
         Assert.assertEquals(updatedRows, 0, "Не должно быть обновленных строк");
     }
@@ -90,7 +90,7 @@ public class UsersDbTest extends BaseTest {
     }
 
     @Test(description = "Негативный кейс: Удаление несуществующего пользователя. Проверка сообщения об ошибке.")
-    public void deleteUsersTest() throws SQLException {
+    public void deleteNonexistentUserTest() throws SQLException {
         int deletedRows = deleteUser(999);
         Assert.assertEquals(deletedRows, 0, "Не должно быть удаленных строк");
     }
@@ -99,7 +99,7 @@ public class UsersDbTest extends BaseTest {
      * 3.6
      */
     @Test(description = "Позитивный кейс: Получение информации о текущем пользователе")
-    public void retrieveUserMePositiveTest() throws SQLException {
+    public void retrieveCurrentUserInfoTest() throws SQLException {
         int userId = createUser("user_me", "password123", "user.me@example.com");
 
         ResultSet user = getUserById(userId);
@@ -109,7 +109,7 @@ public class UsersDbTest extends BaseTest {
     }
 
     @Test(description = "Негативный кейс: Попытка получения без авторизации")
-    public void retrieveUserMeNegativeTest() throws SQLException {
+    public void retrieveUnauthorizedUserInfoTest() throws SQLException {
         ResultSet user = getUserById(999);
         Assert.assertFalse(user.next(), "Данные пользователя не должны быть доступны");
     }
@@ -118,7 +118,7 @@ public class UsersDbTest extends BaseTest {
      * 3.7
      */
     @Test(description = "Позитивный кейс: Обновление текущего пользователя")
-    public void updateUserMePositiveTest() throws SQLException {
+    public void updateCurrentUserInfoTest() throws SQLException {
         int userId = createUser("old_user", "pass123", "old.user@test.com");
 
         int updatedRows = updateUser(userId, "new_user", "new.user@test.com");

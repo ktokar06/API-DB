@@ -16,7 +16,7 @@ public class PostsDbTest extends BaseTest {
      * 1.1
      */
     @Test(description = "Позитивный кейс: Тестовый случай Получение списка постов.")
-    public void listPostTest() throws SQLException {
+    public void listPostsTest() throws SQLException {
         int postId = dbPosts.createPost("Test Title", "Test Content", 1, "publish");
 
         ResultSet rs = getPostById(postId);
@@ -26,7 +26,7 @@ public class PostsDbTest extends BaseTest {
     }
 
     @Test(description = "Негативный кейс: Тестовый случай сообщение Записей нет")
-    public void listPostsTest() throws SQLException {
+    public void listPostsNoPostsReturnsEmptyTest() throws SQLException {
         int postCount = dbPosts.getPostCount();
         Assert.assertEquals(postCount, 0, "Количество постов должно быть 0");
     }
@@ -35,7 +35,7 @@ public class PostsDbTest extends BaseTest {
      * 1.2
      */
     @Test(description = "Позитивный кейс: Создание поста. Проверка, что пост создан с корректными параметрами.")
-    public void createPostTest() throws SQLException {
+    public void createPostWithValidParamsTest() throws SQLException {
         int postId = createPost("Test Title", "Test Content", 1, "publish");
 
         ResultSet resultSet = getPostById(postId);
@@ -50,7 +50,7 @@ public class PostsDbTest extends BaseTest {
      * 1.3
      */
     @Test(description = "Позитивный кейс: Получение поста по ID. Проверка, что пост возвращается с корректными параметрами.")
-    public void retrievePostByIDTest() throws SQLException {
+    public void retrievePostByIdTest() throws SQLException {
         int postId = createPost("Test Title", "Test Content", 1, "publish");
 
         ResultSet resultSet = getPostById(postId);
@@ -60,7 +60,7 @@ public class PostsDbTest extends BaseTest {
     }
 
     @Test(description = "Негативный кейс: Получение несуществующего поста по ID. Проверка сообщения об ошибке.")
-    public void retrievePostsByIDTest() throws SQLException {
+    public void retrieveNonexistentPostByIdTest() throws SQLException {
         ResultSet resultSet = getPostById(999);
         Assert.assertFalse(resultSet.next(), "Пост не найден");
         Assert.assertFalse(resultSet.isBeforeFirst(), "Результат запроса должен быть пустым");
@@ -70,7 +70,7 @@ public class PostsDbTest extends BaseTest {
      * 1.4
      */
     @Test(description = "Позитивный кейс: Обновление поста. Проверка, что пост обновлен с новыми параметрами.")
-    public void updatePostTest() throws SQLException {
+    public void updatePostWithValidParamsTest() throws SQLException {
         int postId = createPost("Test Title", "Test Content", 1, "publish");
 
         int updatedRows = updatePost(postId, "Updated Title", "Updated Content");
@@ -83,7 +83,7 @@ public class PostsDbTest extends BaseTest {
     }
 
     @Test(description = "Негативный кейс: Обновление несуществующего поста. Проверка сообщения об ошибке.")
-    public void updatePostsTest() throws SQLException {
+    public void updateNonexistentPostTest() throws SQLException {
         int updatedRows = updatePost(999, "Updated Title", "Updated Content");
         Assert.assertEquals(updatedRows, 0, "Пост не должен быть обновлен");
     }
@@ -103,7 +103,7 @@ public class PostsDbTest extends BaseTest {
     }
 
     @Test(description = "Негативный кейс: Удаление несуществующего поста. Проверка сообщения об ошибке.")
-    public void deleteNotExistedPostTest() throws SQLException {
+    public void deleteNonexistentPostTest() throws SQLException {
         int deletedRows = deletePost(999);
         Assert.assertEquals(deletedRows, 0, "Пост не найден");
     }
