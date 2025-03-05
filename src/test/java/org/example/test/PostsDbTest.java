@@ -1,6 +1,5 @@
 package org.example.test;
 
-import org.example.service.dbPosts;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.sql.ResultSet;
