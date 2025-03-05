@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static org.example.config.MyConfig.*;
 import static org.example.service.dbUsers.*;
 
 public class UsersDbTest extends BaseTest {
@@ -16,7 +17,7 @@ public class UsersDbTest extends BaseTest {
     public void checkAdminExistsTest() throws SQLException {
         ResultSet admin = getUserById(1);
         Assert.assertTrue(admin.next(), "Администратор не найден");
-        Assert.assertEquals(admin.getString("user_login"), "Firstname.LastName", "Логин администратора не совпадает");
+        Assert.assertEquals(admin.getString(USER_LOGIN_FIELD), "Firstname.LastName", "Логин администратора не совпадает");
     }
 
     /**
@@ -28,8 +29,8 @@ public class UsersDbTest extends BaseTest {
 
         ResultSet user = getUserById(userId);
         Assert.assertTrue(user.next(), "Пользователь не найден");
-        Assert.assertEquals(user.getString("user_login"), "tester", "Логин не совпадает");
-        Assert.assertEquals(user.getString("user_email"), "test@example.com", "Email не совпадает");
+        Assert.assertEquals(user.getString(USER_LOGIN_FIELD), "tester", "Логин не совпадает");
+        Assert.assertEquals(user.getString(USER_EMAIL_FIELD), "test@example.com", "Email не совпадает");
     }
 
     /**
@@ -41,14 +42,14 @@ public class UsersDbTest extends BaseTest {
 
         ResultSet user = getUserById(userId);
         Assert.assertTrue(user.next(), "Пользователь не найден");
-        Assert.assertEquals(user.getString("user_login"), "user1");
+        Assert.assertEquals(user.getString(USER_LOGIN_FIELD), "user1");
     }
 
     @Test(description = "Негативный кейс: Получение несуществующего пользователя по ID. Проверка сообщения об ошибке.")
     public void retrieveUsersByIdTest() throws SQLException {
         ResultSet user = getUserById(999);
         Assert.assertFalse(user.next(), "Пользователь не должен существовать");
-        Assert.assertFalse(user.isBeforeFirst(), "Пусто");
+        Assert.assertFalse(user.isBeforeFirst(), "Результат запроса должен быть пустым");
     }
 
     /**
@@ -63,8 +64,8 @@ public class UsersDbTest extends BaseTest {
 
         ResultSet user = getUserById(userId);
         Assert.assertTrue(user.next());
-        Assert.assertEquals(user.getString("user_login"), "newuser");
-        Assert.assertEquals(user.getString("user_email"), "new@test.com");
+        Assert.assertEquals(user.getString(USER_LOGIN_FIELD), "newuser");
+        Assert.assertEquals(user.getString(USER_EMAIL_FIELD), "new@test.com");
     }
 
     @Test(description = "Негативный кейс: Обновление несуществующего пользователя. Проверка сообщения об ошибке.")
@@ -102,8 +103,8 @@ public class UsersDbTest extends BaseTest {
 
         ResultSet user = getUserById(userId);
         Assert.assertTrue(user.next(), "Информация о пользователе не найдена");
-        Assert.assertEquals(user.getString("user_login"), "user_me", "Логин не совпадает");
-        Assert.assertEquals(user.getString("user_email"), "user.me@example.com", "Email не совпадает");
+        Assert.assertEquals(user.getString(USER_LOGIN_FIELD), "user_me", "Логин не совпадает");
+        Assert.assertEquals(user.getString(USER_EMAIL_FIELD), "user.me@example.com", "Email не совпадает");
     }
 
     @Test(description = "Негативный кейс: Попытка получения без авторизации")
@@ -124,7 +125,7 @@ public class UsersDbTest extends BaseTest {
 
         ResultSet user = getUserById(userId);
         Assert.assertTrue(user.next(), "Пользователь не найден");
-        Assert.assertEquals(user.getString("user_login"), "new_user", "Логин не обновлён");
-        Assert.assertEquals(user.getString("user_email"), "new.user@test.com", "Email не обновлён");
+        Assert.assertEquals(user.getString(USER_LOGIN_FIELD), "new_user", "Логин не обновлён");
+        Assert.assertEquals(user.getString(USER_EMAIL_FIELD), "new.user@test.com", "Email не обновлён");
     }
 }

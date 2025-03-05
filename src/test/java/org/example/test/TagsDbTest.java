@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static org.example.config.MyConfig.*;
 import static org.example.service.dbTags.*;
 
 public class TagsDbTest extends BaseTest {
@@ -36,8 +37,8 @@ public class TagsDbTest extends BaseTest {
 
         ResultSet tag = getTagById(tagId);
         Assert.assertTrue(tag.next(), "Тег не найден");
-        Assert.assertEquals(tag.getString("name"), tagName, "Название тега не совпадает");
-        Assert.assertEquals(tag.getString("slug"), "test-tag", "Тег не совпадает");
+        Assert.assertEquals(tag.getString(TAG_NAME_FIELD), tagName, "Название тега не совпадает");
+        Assert.assertEquals(tag.getString(TAG_SLUG_FIELD), "test-tag", "Тег не совпадает");
     }
 
     /**
@@ -48,7 +49,7 @@ public class TagsDbTest extends BaseTest {
         int tagId = createTag("Test Tag");
         ResultSet tag = getTagById(tagId);
         Assert.assertTrue(tag.next(), "Тег не найден");
-        Assert.assertEquals(tag.getString("name"), "Test Tag", "Название тега не совпадает");
+        Assert.assertEquals(tag.getString(TAG_NAME_FIELD), "Test Tag", "Название тега не совпадает");
     }
 
     @Test(description = "Негативный кейс: Получение несуществующего тега по ID. Проверка сообщения об ошибке.")
@@ -75,8 +76,8 @@ public class TagsDbTest extends BaseTest {
 
         ResultSet tag = getTagById(tagId);
         Assert.assertTrue(tag.next(), "Тег не найден");
-        Assert.assertEquals(tag.getString("name"), newName, "Название не обновлено");
-        Assert.assertEquals(tag.getString("slug"), expectedSlug, "Тег не обновлен");
+        Assert.assertEquals(tag.getString(TAG_NAME_FIELD), newName, "Название не обновлено");
+        Assert.assertEquals(tag.getString(TAG_SLUG_FIELD), expectedSlug, "Тег не обновлен");
     }
 
     @Test(description = "Негативный кейс: Обновление несуществующего тега. Проверка сообщения об ошибке.")
