@@ -31,6 +31,14 @@ public class dbTags {
         return pstmt.executeQuery();
     }
 
+    public static int getTagCount() throws SQLException {
+        String query = "SELECT COUNT(*) FROM wp_terms";
+        try (Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(query)) {
+            return resultSet.next() ? resultSet.getInt(1) : 0;
+        }
+    }
+
     public static int updateTag(int termId, String newName) throws SQLException {
         String newSlug = newName.toLowerCase().replace(" ", "-");
         String query = "UPDATE wp_terms SET name = ?, slug = ? WHERE term_id = ?";

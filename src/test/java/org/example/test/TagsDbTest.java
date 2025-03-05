@@ -23,8 +23,8 @@ public class TagsDbTest extends BaseTest {
 
     @Test(description = "Негативный кейс: Получение списка тегов. Проверка, что список пуст.")
     public void listTagsTest() throws SQLException {
-        ResultSet tags = getTagById(999);
-        Assert.assertFalse(tags.next(), "Список тегов должен быть пустым");
+        int tagCount = dbTags.getTagCount();
+        Assert.assertEquals(tagCount, 0, "Количество тег должно быть 0");
     }
 
     /**
@@ -65,11 +65,9 @@ public class TagsDbTest extends BaseTest {
      */
     @Test(description = "Позитивный кейс: Обновление тега. Проверка, что тег обновлен с новыми параметрами.")
     public void updateTagsTest() throws SQLException {
-        String oldName = "Old Name";
         String newName = "New Name";
-        String expectedSlug = "new-name";
 
-        int tagId = createTag(oldName);
+        int tagId = createTag("Old Name");
 
         int updatedRows = updateTag(tagId, newName);
         Assert.assertEquals(updatedRows, 1, "Тег не обновлен");
@@ -77,7 +75,7 @@ public class TagsDbTest extends BaseTest {
         ResultSet tag = getTagById(tagId);
         Assert.assertTrue(tag.next(), "Тег не найден");
         Assert.assertEquals(tag.getString(TAG_NAME_FIELD), newName, "Название не обновлено");
-        Assert.assertEquals(tag.getString(TAG_SLUG_FIELD), expectedSlug, "Тег не обновлен");
+        Assert.assertEquals(tag.getString(TAG_SLUG_FIELD), "new-name", "Тег не обновлен");
     }
 
     @Test(description = "Негативный кейс: Обновление несуществующего тега. Проверка сообщения об ошибке.")

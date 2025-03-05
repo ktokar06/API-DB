@@ -23,6 +23,8 @@ public class MyConfig {
     public static final String POST_TITLE_FIELD = "post_title";
     public static final String POST_CONTENT_FIELD = "post_content";
 
+
+
     /**
      * Tags
      * */

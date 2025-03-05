@@ -39,6 +39,16 @@ public class dbPosts {
         return pstmt.executeQuery();
     }
 
+    // Count Post
+    public static int getPostCount() throws SQLException {
+        String query = "SELECT COUNT(*) FROM wp_posts";
+        try (Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(query)) {
+            return resultSet.next() ? resultSet.getInt(1) : 0;
+        }
+    }
+
+
     // Update post
     public static int updatePost(int postId, String title, String content) throws SQLException {
         if (title == null || content == null) {
