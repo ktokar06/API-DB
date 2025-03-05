@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import static org.example.config.MyConfig.*;
 import static org.example.service.dbUsers.*;
 
+
 public class UsersDbTest extends BaseTest {
 
     /**

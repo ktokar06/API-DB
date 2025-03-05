@@ -32,7 +32,7 @@ public class TagsApiTest{
 
     @Test(description = "Негативный кейс: Получение списка тегов. Проверка, что список пуст.")
     public void listTagsTest() {
-        deleteAllPost();
+        deleteAllTag();
 
         Response list = listTags();
         Assert.assertEquals(list.statusCode(), 200, "Ожидался Статус-код 200: OK");

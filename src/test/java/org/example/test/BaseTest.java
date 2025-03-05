@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+
 public class BaseTest {
 
     private DataBaseConnUtilities dbUtils;
