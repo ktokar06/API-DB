@@ -36,7 +36,7 @@ public class TagsDbTest extends BaseTest {
 
         ResultSet tag = getTagById(tagId);
         Assert.assertTrue(tag.next(), "Тег не найден");
-        Assert.assertEquals(tagName, tag.getString("name"), "Название тега не совпадает");
+        Assert.assertEquals(tag.getString("name"), tagName, "Название тега не совпадает");
         Assert.assertEquals(tag.getString("slug"), "test-tag", "Тег не совпадает");
     }
 
