@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import static org.example.config.MyConfig.*;
-import static org.example.service.ApiTags.*;
+import static org.example.service.apiTags.*;
 import static org.example.specification.Specifications.requestSpecification;
 
 

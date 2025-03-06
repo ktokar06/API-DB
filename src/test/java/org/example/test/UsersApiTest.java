@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 import static org.example.config.MyConfig.*;
-import static org.example.service.ApiUsers.*;
+import static org.example.service.apiUsers.*;
 import static org.example.specification.Specifications.requestSpecification;
 
 

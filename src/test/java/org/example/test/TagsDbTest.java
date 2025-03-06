@@ -6,26 +6,28 @@ import org.testng.annotations.Test;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static org.example.config.MyConfig.*;
 import static org.example.service.dbTags.*;
 
 
 public class TagsDbTest extends BaseTest {
+
+    private final String nameField = "name";
+    private  final String slugField= "slug";
 
     /**
      * 2.1
      */
     @Test(description = "Позитивный кейс: Получение списка тегов. Проверка, что созданный тег присутствует в списке.")
     public void listTagsTest() throws SQLException {
-        int tagId = createTag(TEST_TEG);
+        int tagId = createTag("Test Tag");
         ResultSet tags = dbTags.getTagById(tagId);
         Assert.assertTrue(tags.next(), "Тег не найден в списке");
     }
 
     @Test(description = "Негативный кейс: Получение списка тегов. Проверка, что список пуст.")
     public void listTagsNonexistentTest() throws SQLException {
-        int tagCount = dbTags.getTagCount();
-        Assert.assertEquals(tagCount, 0, "Количество тег должно быть 0");
+        int tagCount = getTagCount();
+        Assert.assertEquals(tagCount, 0, "Ожидалось, что список тегов будет пустым");
     }
 
     /**
@@ -38,8 +40,8 @@ public class TagsDbTest extends BaseTest {
 
         ResultSet tag = getTagById(tagId);
         Assert.assertTrue(tag.next(), "Тег не найден");
-        Assert.assertEquals(tag.getString(TAG_NAME_FIELD), tagName, "Название тега не совпадает");
-        Assert.assertEquals(tag.getString(TAG_SLUG_FIELD), "test-tag", "Тег не совпадает");
+        Assert.assertEquals(tag.getString(nameField), tagName, "Название тега не совпадает");
+        Assert.assertEquals(tag.getString(slugField), "test-tag", "Тег не совпадает");
     }
 
     /**
@@ -47,18 +49,18 @@ public class TagsDbTest extends BaseTest {
      */
     @Test(description = "Позитивный кейс: Получение тега по ID. Проверка, что тег возвращается с корректными параметрами.")
     public void retrieveTagByIDTest() throws SQLException {
-        int tagId = createTag(TEST_TEG);
+        int tagId = createTag("Test Tag");
 
         ResultSet tag = getTagById(tagId);
         Assert.assertTrue(tag.next(), "Тег не найден");
-        Assert.assertEquals(tag.getString(TAG_NAME_FIELD), "Test Tag", "Название тега не совпадает");
+        Assert.assertEquals(tag.getString(nameField), "Test Tag", "Название тега не совпадает");
     }
 
     @Test(description = "Негативный кейс: Получение несуществующего тега по ID. Проверка сообщения об ошибке.")
     public void retrieveNonexistentTagByIDTest() throws SQLException {
         ResultSet tag = getTagById(999);
         Assert.assertFalse(tag.next(), "Тег не должен существовать");
-        Assert.assertFalse(tag.isBeforeFirst(), "Пусто");
+        Assert.assertEquals(tag, 0, "Количество тег должно быть 0");
 
     }
 
@@ -76,8 +78,8 @@ public class TagsDbTest extends BaseTest {
 
         ResultSet tag = getTagById(tagId);
         Assert.assertTrue(tag.next(), "Тег не найден");
-        Assert.assertEquals(tag.getString(TAG_NAME_FIELD), newName, "Название не обновлено");
-        Assert.assertEquals(tag.getString(TAG_SLUG_FIELD), "new-name", "Тег не обновлен");
+        Assert.assertEquals(tag.getString("name"), newName, "Название не обновлено");
+        Assert.assertEquals(tag.getString(slugField), "new-name", "Тег не обновлен");
     }
 
     @Test(description = "Негативный кейс: Обновление несуществующего тега. Проверка сообщения об ошибке.")
@@ -91,7 +93,7 @@ public class TagsDbTest extends BaseTest {
      */
     @Test(description = "Позитивный кейс: Удаление тега. Проверка, что тег удален.")
     public void deleteTagTest() throws SQLException {
-        int tagId = createTag(TEST_TEG);
+        int tagId = createTag("Test Tag");
 
         int deletedRows = deleteTag(tagId);
         Assert.assertEquals(deletedRows, 1, "Тег не удален");
