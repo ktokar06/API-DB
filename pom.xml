@@ -44,5 +44,12 @@
       <artifactId>testng</artifactId>
       <version>7.10.2</version>
     </dependency>
+
+    <!-- JDBC dependency -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.27</version>
+    </dependency>
   </dependencies>
 </project>
