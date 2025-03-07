@@ -12,7 +12,7 @@ import static org.example.service.dbTags.*;
 public class TagsDbTest extends BaseTest {
 
     private final String nameField = "name";
-    private  final String slugField= "slug";
+    private final String slugField= "slug";
 
     /**
      * 2.1
@@ -60,8 +60,7 @@ public class TagsDbTest extends BaseTest {
     public void retrieveNonexistentTagByIDTest() throws SQLException {
         ResultSet tag = getTagById(999);
         Assert.assertFalse(tag.next(), "Тег не должен существовать");
-        Assert.assertEquals(tag, 0, "Количество тег должно быть 0");
-
+        Assert.assertFalse(tag.isBeforeFirst(), "Результат запроса должен быть пустым");
     }
 
     /**

@@ -115,7 +115,6 @@ public class UsersDbTest extends BaseTest {
     public void retrieveUnauthorizedUserInfoTest() throws SQLException {
         ResultSet user = getUserById(999);
         Assert.assertFalse(user.next(), "Данные пользователя не должны быть доступны");
-        Assert.assertEquals(user, 0, "Количество Пользователей должно быть 0");
     }
 
     /**

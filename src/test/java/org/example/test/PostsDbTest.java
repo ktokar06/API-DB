@@ -13,16 +13,19 @@ public class PostsDbTest extends BaseTest {
     private final String updatedTitle = "Updated Title";
     private final String updatedContent = "Updated Content";
 
-    private final String post_titel = "post_title";
+    private final String post_title = "post_title";
     private final String post_content = "post_content";
 
+    /**
+     * 1.1
+     */
     @Test(description = "Позитивный кейс: Тестовый случай Получение списка постов.")
     public void listPostTest() throws SQLException {
         int postId = createPost("Test Title", "Test Content", 1, "publish");
 
         ResultSet resultSet = getPostById(postId);
         Assert.assertTrue(resultSet.next(), "Пост не найден");
-        assertEquals(resultSet.getString(post_titel), "Test Title", "Заголовок поста не совпадает");
+        assertEquals(resultSet.getString(post_title), "Test Title", "Заголовок поста не совпадает");
         assertEquals(resultSet.getString(post_content), "Test Content", "Содержание поста не совпадает");
     }
 
@@ -32,35 +35,44 @@ public class PostsDbTest extends BaseTest {
         assertEquals(postCount, 0, "Ожидалось, что список постов будет пустым");
     }
 
+    /**
+     * 1.2
+     */
     @Test(description = "Позитивный кейс: Создание поста. Проверка, что пост создан с корректными параметрами.")
     public void createPostTest() throws SQLException {
         int postId = createPost("Test Title", "Test Content", 1, "publish");
 
         ResultSet resultSet = getPostById(postId);
         Assert.assertTrue(resultSet.next(), "Пост не найден");
-        assertEquals(resultSet.getString(post_titel), "Test Title", "Заголовок поста не совпадает");
+        assertEquals(resultSet.getString(post_title), "Test Title", "Заголовок поста не совпадает");
         assertEquals(resultSet.getString(post_content), "Test Content", "Содержание поста не совпадает");
         assertEquals(resultSet.getInt("post_author"), 1, "Автор поста не совпадает");
         assertEquals(resultSet.getString("post_status"), "publish", "Статус поста не совпадает");
     }
 
+    /**
+     * 1.3
+     */
     @Test(description = "Позитивный кейс: Получение поста по ID. Проверка, что пост возвращается с корректными параметрами.")
     public void retrievePostByIDTest() throws SQLException {
         int postId = createPost("Test Title", "Test Content", 1, "publish");
 
         ResultSet resultSet = getPostById(postId);
         Assert.assertTrue(resultSet.next(), "Пост не найден");
-        assertEquals(resultSet.getString(post_titel), "Test Title", "Заголовок поста не совпадает");
+        assertEquals(resultSet.getString(post_title), "Test Title", "Заголовок поста не совпадает");
         assertEquals(resultSet.getString(post_content), "Test Content", "Содержание поста не совпадает");
     }
 
     @Test(description = "Негативный кейс: Получение несуществующего поста по ID. Проверка сообщения об ошибке.")
     public void retrieveNonexistentPostByIdTest() throws SQLException {
         ResultSet resultSet = getPostById(999);
-        Assert.assertFalse(resultSet.next(), "Пост не найден");
-        Assert.assertEquals(resultSet, 0, "Количество постов должно быть 0");
+        Assert.assertFalse(resultSet.next(), "Ожидалось отсутствие поста для несуществующего ID");
+        Assert.assertFalse(resultSet.isBeforeFirst(), "Результат запроса должен быть пустым");
     }
 
+    /**
+     * 1.4
+     */
     @Test(description = "Позитивный кейс: Обновление поста. Проверка, что пост обновлен с новыми параметрами.")
     public void updatePostTest() throws SQLException {
         int postId = createPost("Test Title", "Test Content", 1, "publish");
@@ -70,7 +82,7 @@ public class PostsDbTest extends BaseTest {
 
         ResultSet resultSet = getPostById(postId);
         Assert.assertTrue(resultSet.next(), "Пост не найден");
-        assertEquals(resultSet.getString(post_titel), updatedTitle, "Заголовок поста не совпадает");
+        assertEquals(resultSet.getString(post_title), updatedTitle, "Заголовок поста не совпадает");
         assertEquals(resultSet.getString(post_content), updatedContent, "Содержание поста не совпадает");
     }
 
@@ -80,6 +92,10 @@ public class PostsDbTest extends BaseTest {
         assertEquals(updatedRows, 0, "Пост не должен быть обновлен");
     }
 
+
+    /**
+     * 1.5
+     */
     @Test(description = "Позитивный кейс: Удаление поста. Проверка, что пост удален.")
     public void deletePostTest() throws SQLException {
         int postId = createPost("Test Title", "Test Content", 1, "publish");
