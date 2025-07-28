@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import static org.example.service.dbUsers.*;
 import static org.testng.Assert.assertEquals;
 
-
 public class UsersDbTest extends BaseTest {
 
     private final String user_login_field = "user_login";
