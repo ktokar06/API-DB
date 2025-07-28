@@ -2,7 +2,6 @@ package org.example.service;
 
 import java.sql.*;
 
-
 public class dbPosts {
 
     private static Connection connection;
@@ -11,7 +10,6 @@ public class dbPosts {
         dbPosts.connection = connection;
     }
 
-    // Create post
     public static int createPost(String title, String content, int authorId, String status) throws SQLException {
         String slug = title.toLowerCase().replace(" ", "-");
         String query = "INSERT INTO wp_posts (post_author, post_content, post_title, " +
@@ -32,7 +30,6 @@ public class dbPosts {
         }
     }
 
-    // Retv post ID
     public static ResultSet getPostById(int postId) throws SQLException {
         String query = "SELECT * FROM wp_posts WHERE ID = ?";
         PreparedStatement pstmt = connection.prepareStatement(query);
@@ -49,8 +46,6 @@ public class dbPosts {
         }
     }
 
-
-    // Update post
     public static int updatePost(int postId, String title, String content) throws SQLException {
         if (title == null || content == null) {
             throw new SQLException("Заголовок и содержание обязательны");
@@ -65,7 +60,6 @@ public class dbPosts {
         }
     }
 
-    // Delete post
     public static int deletePost(int postId) throws SQLException {
         String query = "DELETE FROM wp_posts WHERE ID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
@@ -74,7 +68,6 @@ public class dbPosts {
         }
     }
 
-    // Delete all post
     public static void deleteAllPosts() throws SQLException {
         String query = "DELETE FROM wp_posts";
         try (Statement stmt = connection.createStatement()) {
