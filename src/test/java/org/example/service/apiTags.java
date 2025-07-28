@@ -80,14 +80,12 @@ public class apiTags {
     }
 
     public static Response deleteAllTag() {
-        // список всех tag
         Response response = listTags();
 
         if (response.statusCode() == 200) {
             List<Integer> tagIds = response.jsonPath().getList("id");
 
             if (!tagIds.isEmpty()) {
-                // Удаляем tag
                 for (Integer tagId : tagIds) {
                     deleteTag(tagId);
                 }
