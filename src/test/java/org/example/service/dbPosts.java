@@ -37,7 +37,6 @@ public class dbPosts {
         return pstmt.executeQuery();
     }
 
-    // Count Post
     public static int getPostCount() throws SQLException {
         String query = "SELECT COUNT(*) FROM wp_posts";
         try (Statement stmt = connection.createStatement();
