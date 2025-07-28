@@ -11,7 +11,6 @@ import static org.example.service.apiPosts.deleteAllPost;
 import static org.example.service.apiTags.*;
 import static org.example.specification.Specifications.requestSpecification;
 
-
 public class TagsApiTest{
 
     /**
