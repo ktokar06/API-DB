@@ -9,10 +9,8 @@ import static io.restassured.RestAssured.given;
 import static org.example.config.MyConfig.*;
 import static org.example.specification.Specifications.requestSpecification;
 
-
 public class apiPosts {
 
-    // cоздание post
     public static Response createPost(String title, String content, int categoryId, String status) {
         String body = String.format("{\"title\":\"%s\",\"content\":\"%s\",\"categories\":[%d],\"status\":\"%s\"}",
                 title, content, categoryId, status);
@@ -28,7 +26,6 @@ public class apiPosts {
                 .response();
     }
 
-    // получение списка post
     public static Response listPosts() {
         return RestAssured.given()
                 .auth().preemptive().basic(USERNAME, PASSWORD)
@@ -42,7 +39,6 @@ public class apiPosts {
 
     }
 
-    // получение post по ID
     public static Response retrievePostById(int postId) {
         return RestAssured.given()
                 .auth().preemptive().basic(USERNAME, PASSWORD)
@@ -56,7 +52,6 @@ public class apiPosts {
                 .response();
     }
 
-    // обновление post
     public static Response updatePost(int postId, String title, String content) {
         String body = String.format("{\"title\": \"%s\", \"content\": \"%s\"}", title, content);
         return RestAssured.given()
@@ -72,7 +67,6 @@ public class apiPosts {
                 .response();
     }
 
-    // удаление post
     public static Response deletePost(int postId) {
         return RestAssured.given()
                 .auth().preemptive().basic(USERNAME, PASSWORD)
@@ -87,16 +81,13 @@ public class apiPosts {
                 .response();
     }
 
-    // удаление post полностью
     public static Response deleteAllPost() {
-        // список всех post
         Response response = listPosts();
 
         if (response.statusCode() == 200) {
             List<Integer> postIds = response.jsonPath().getList("id");
 
             if (!postIds.isEmpty()) {
-                // Удаляем post
                 for (Integer postId : postIds) {
                     deletePost(postId);
                 }
@@ -110,7 +101,6 @@ public class apiPosts {
         return response;
     }
 
-    // информации по id
     public static Response postById(int postId) {
         return given()
                 .auth().preemptive().basic(USERNAME, PASSWORD)
