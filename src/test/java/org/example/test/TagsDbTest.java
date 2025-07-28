@@ -8,7 +8,6 @@ import java.sql.SQLException;
 
 import static org.example.service.dbTags.*;
 
-
 public class TagsDbTest extends BaseTest {
 
     private final String nameField = "name";
