@@ -9,10 +9,8 @@ import static io.restassured.RestAssured.given;
 import static org.example.config.MyConfig.*;
 import static org.example.specification.Specifications.requestSpecification;
 
-
 public class apiTags {
 
-    // cоздание tag
     public static Response createTag(String name, String description) {
         String body = String.format("{\"name\": \"%s\", \"description\": \"%s\"}", name, description);
         return RestAssured.given()
@@ -27,7 +25,6 @@ public class apiTags {
                 .response();
     }
 
-    // получение списка tag
     public static Response listTags() {
         return RestAssured.given()
                 .auth().preemptive().basic(USERNAME, PASSWORD)
@@ -40,7 +37,6 @@ public class apiTags {
                 .response();
     }
 
-    // получение tag по ID
     public static Response retrieveTagById(int tagId) {
         return RestAssured.given()
                 .auth().preemptive().basic(USERNAME, PASSWORD)
@@ -54,7 +50,6 @@ public class apiTags {
                 .response();
     }
 
-    // обновление tag
     public static Response updateTag(int tagId, String name, String description) {
         String body = String.format("{\"name\": \"%s\", \"description\": \"%s\"}", name, description);
         return RestAssured.given()
@@ -70,7 +65,6 @@ public class apiTags {
                 .response();
     }
 
-    // удаление tag
     public static Response deleteTag(int tagId) {
         return RestAssured.given()
                 .auth().preemptive().basic(USERNAME, PASSWORD)
@@ -85,7 +79,6 @@ public class apiTags {
                 .response();
     }
 
-    // удаление tag полностью
     public static Response deleteAllTag() {
         // список всех tag
         Response response = listTags();
@@ -108,7 +101,6 @@ public class apiTags {
         return response;
     }
 
-    // информации по id
     public static Response tagById(int tagId) {
         return given()
                 .auth().preemptive().basic(USERNAME, PASSWORD)
