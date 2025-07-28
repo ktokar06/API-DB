@@ -6,10 +6,8 @@ import static io.restassured.RestAssured.given;
 import static org.example.config.MyConfig.*;
 import static org.example.specification.Specifications.requestSpecification;
 
-
 public class apiUsers {
 
-    // создание user
     public static Response createUser (String username, String email, String password) {
         String body = String.format("{\"username\": \"%s\", \"email\": \"%s\", \"password\": \"%s\"}", username, email, password);
         return given()
@@ -24,7 +22,6 @@ public class apiUsers {
                 .response();
     }
 
-    // получение списка user
     public static Response listUsers() {
         return given()
                 .auth().preemptive().basic(USERNAME, PASSWORD)
@@ -37,7 +34,6 @@ public class apiUsers {
                 .response();
     }
 
-    // получение user по ID
     public static Response retrieveUserById(int userId) {
         return given()
                 .auth().preemptive().basic(USERNAME, PASSWORD)
@@ -51,7 +47,6 @@ public class apiUsers {
                 .response();
     }
 
-    // обновление user
     public static Response updateUser (int userId, String email, String firstName, String lastName) {
         String body = String.format("{\"email\": \"%s\", \"first_name\": \"%s\", \"last_name\": \"%s\"}", email, firstName, lastName);
         return given()
@@ -67,7 +62,6 @@ public class apiUsers {
                 .response();
     }
 
-    // удаление user
     public static Response deleteUser (int userId) {
         return given()
                 .auth().preemptive().basic(USERNAME, PASSWORD)
@@ -83,7 +77,6 @@ public class apiUsers {
                 .response();
     }
 
-    // информации по id
     public static Response userById(int userId) {
         return given()
                 .auth().preemptive().basic(USERNAME, PASSWORD)
